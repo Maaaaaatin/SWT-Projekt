@@ -94,7 +94,7 @@ namespace CppCLR_WinformsProjekt {
 			this->gbMain->CausesValidation = false;
 			this->gbMain->Location = System::Drawing::Point(12, 12);
 			this->gbMain->Name = L"gbMain";
-			this->gbMain->Size = System::Drawing::Size(1034, 569);
+			this->gbMain->Size = System::Drawing::Size(1000, 550);
 			this->gbMain->TabIndex = 8;
 			this->gbMain->TabStop = false;
 			// 
@@ -104,18 +104,18 @@ namespace CppCLR_WinformsProjekt {
 			this->gbControll->Controls->Add(this->bNextStep);
 			this->gbControll->Controls->Add(this->bSave);
 			this->gbControll->Controls->Add(this->bCalc);
-			this->gbControll->Location = System::Drawing::Point(1052, 12);
+			this->gbControll->Location = System::Drawing::Point(1018, 12);
 			this->gbControll->Name = L"gbControll";
-			this->gbControll->Size = System::Drawing::Size(200, 569);
+			this->gbControll->Size = System::Drawing::Size(230, 550);
 			this->gbControll->TabIndex = 7;
 			this->gbControll->TabStop = false;
 			// 
 			// bShowCircuit
 			// 
 			this->bShowCircuit->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->bShowCircuit->Location = System::Drawing::Point(3, 520);
+			this->bShowCircuit->Location = System::Drawing::Point(3, 501);
 			this->bShowCircuit->Name = L"bShowCircuit";
-			this->bShowCircuit->Size = System::Drawing::Size(194, 23);
+			this->bShowCircuit->Size = System::Drawing::Size(224, 23);
 			this->bShowCircuit->TabIndex = 3;
 			this->bShowCircuit->Text = L"Schaltung anzeigen";
 			this->bShowCircuit->UseVisualStyleBackColor = true;
@@ -125,7 +125,7 @@ namespace CppCLR_WinformsProjekt {
 			this->bNextStep->Dock = System::Windows::Forms::DockStyle::Top;
 			this->bNextStep->Location = System::Drawing::Point(3, 39);
 			this->bNextStep->Name = L"bNextStep";
-			this->bNextStep->Size = System::Drawing::Size(194, 23);
+			this->bNextStep->Size = System::Drawing::Size(224, 23);
 			this->bNextStep->TabIndex = 2;
 			this->bNextStep->Text = L"Nächster Schritt";
 			this->bNextStep->UseVisualStyleBackColor = true;
@@ -133,9 +133,9 @@ namespace CppCLR_WinformsProjekt {
 			// bSave
 			// 
 			this->bSave->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->bSave->Location = System::Drawing::Point(3, 543);
+			this->bSave->Location = System::Drawing::Point(3, 524);
 			this->bSave->Name = L"bSave";
-			this->bSave->Size = System::Drawing::Size(194, 23);
+			this->bSave->Size = System::Drawing::Size(224, 23);
 			this->bSave->TabIndex = 1;
 			this->bSave->Text = L"Speichern";
 			this->bSave->UseVisualStyleBackColor = true;
@@ -145,7 +145,7 @@ namespace CppCLR_WinformsProjekt {
 			this->bCalc->Dock = System::Windows::Forms::DockStyle::Top;
 			this->bCalc->Location = System::Drawing::Point(3, 16);
 			this->bCalc->Name = L"bCalc";
-			this->bCalc->Size = System::Drawing::Size(194, 23);
+			this->bCalc->Size = System::Drawing::Size(224, 23);
 			this->bCalc->TabIndex = 0;
 			this->bCalc->Text = L"Berechnen";
 			this->bCalc->UseVisualStyleBackColor = true;
@@ -154,9 +154,9 @@ namespace CppCLR_WinformsProjekt {
 			// 
 			this->gbSettings->Controls->Add(this->rbFull);
 			this->gbSettings->Controls->Add(this->rbStepwise);
-			this->gbSettings->Location = System::Drawing::Point(800, 587);
+			this->gbSettings->Location = System::Drawing::Point(808, 568);
 			this->gbSettings->Name = L"gbSettings";
-			this->gbSettings->Size = System::Drawing::Size(452, 82);
+			this->gbSettings->Size = System::Drawing::Size(440, 100);
 			this->gbSettings->TabIndex = 6;
 			this->gbSettings->TabStop = false;
 			// 
@@ -187,9 +187,9 @@ namespace CppCLR_WinformsProjekt {
 			this->gbGleichung->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
 			this->gbGleichung->Controls->Add(this->lGleichungen);
 			this->gbGleichung->Controls->Add(this->tbGleichung);
-			this->gbGleichung->Location = System::Drawing::Point(12, 587);
+			this->gbGleichung->Location = System::Drawing::Point(12, 568);
 			this->gbGleichung->Name = L"gbGleichung";
-			this->gbGleichung->Size = System::Drawing::Size(782, 82);
+			this->gbGleichung->Size = System::Drawing::Size(790, 100);
 			this->gbGleichung->TabIndex = 5;
 			this->gbGleichung->TabStop = false;
 			// 
@@ -210,9 +210,9 @@ namespace CppCLR_WinformsProjekt {
 			this->tbGleichung->Dock = System::Windows::Forms::DockStyle::Bottom;
 			this->tbGleichung->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbGleichung->Location = System::Drawing::Point(3, 53);
+			this->tbGleichung->Location = System::Drawing::Point(3, 71);
 			this->tbGleichung->Name = L"tbGleichung";
-			this->tbGleichung->Size = System::Drawing::Size(776, 26);
+			this->tbGleichung->Size = System::Drawing::Size(784, 26);
 			this->tbGleichung->TabIndex = 0;
 			// 
 			// Form1
