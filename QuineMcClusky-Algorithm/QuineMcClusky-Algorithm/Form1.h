@@ -154,9 +154,9 @@ namespace CppCLR_WinformsProjekt {
 			// 
 			this->gbSettings->Controls->Add(this->rbFull);
 			this->gbSettings->Controls->Add(this->rbStepwise);
-			this->gbSettings->Location = System::Drawing::Point(808, 568);
+			this->gbSettings->Location = System::Drawing::Point(818, 568);
 			this->gbSettings->Name = L"gbSettings";
-			this->gbSettings->Size = System::Drawing::Size(440, 100);
+			this->gbSettings->Size = System::Drawing::Size(430, 100);
 			this->gbSettings->TabIndex = 6;
 			this->gbSettings->TabStop = false;
 			// 
@@ -189,7 +189,7 @@ namespace CppCLR_WinformsProjekt {
 			this->gbGleichung->Controls->Add(this->tbGleichung);
 			this->gbGleichung->Location = System::Drawing::Point(12, 568);
 			this->gbGleichung->Name = L"gbGleichung";
-			this->gbGleichung->Size = System::Drawing::Size(790, 100);
+			this->gbGleichung->Size = System::Drawing::Size(800, 100);
 			this->gbGleichung->TabIndex = 5;
 			this->gbGleichung->TabStop = false;
 			// 
@@ -212,7 +212,7 @@ namespace CppCLR_WinformsProjekt {
 				static_cast<System::Byte>(0)));
 			this->tbGleichung->Location = System::Drawing::Point(3, 71);
 			this->tbGleichung->Name = L"tbGleichung";
-			this->tbGleichung->Size = System::Drawing::Size(784, 26);
+			this->tbGleichung->Size = System::Drawing::Size(794, 26);
 			this->tbGleichung->TabIndex = 0;
 			// 
 			// Form1
