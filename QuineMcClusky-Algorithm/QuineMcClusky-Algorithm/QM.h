@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <string.h>
 #include <vector>
 #include <stdlib.h>
 #include <algorithm>
@@ -29,7 +30,7 @@ public:
 	//check ob 2 Vektoren gleich sind
 	bool EqualVectors(vector<string> a, vector<string> b);
 private:
-	int VARIABLES;
+	int numVars;
 	string* dontcares;
 };
 

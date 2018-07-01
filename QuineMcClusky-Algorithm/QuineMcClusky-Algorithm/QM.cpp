@@ -1,24 +1,24 @@
 #include "stdafx.h"
 #include "QM.h"
 
-#define MAX_VARIABLES 20
+#define MAX_numVars 20
 QM::QM(int numberElements)
 {
-	VARIABLES = numberElements;
+	numVars = numberElements;
 	dontcares->append(numberElements, '-');
 }
 
 vector<string> QM::getVars()
 {
 	vector<string> v;
-	string letters[MAX_VARIABLES];
+	string letters[MAX_numVars];
 	int i = 0;
 
-	while (i < MAX_VARIABLES)
+	while (i < MAX_numVars)
 	{
-		letters[i] = "x" + to_string(i);
+		letters[i] = 97 + i;
 	}
-	for (int i = 0; i<this->VARIABLES; i++)
+	for (int i = 0; i<this->numVars; i++)
 		v.push_back(letters[i]);
 
 	return v;
@@ -37,7 +37,7 @@ string QM::decToBin(int number)
 
 string QM::zeroes(string binStr)
 {
-	int max = VARIABLES - binStr.length();
+	int max = numVars - binStr.length();
 	for (int i = 0; i<max; i++)
 		binStr = "0" + binStr;
 	return binStr;

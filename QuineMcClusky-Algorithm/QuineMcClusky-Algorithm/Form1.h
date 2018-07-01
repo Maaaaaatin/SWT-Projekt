@@ -1,4 +1,7 @@
 #pragma once
+#include "QM.h"
+#include <sstream>	//istringstream
+#include <msclr\marshal_cppstd.h>
 
 namespace CppCLR_WinformsProjekt {
 
@@ -36,7 +39,7 @@ namespace CppCLR_WinformsProjekt {
 		}
 	private: System::Windows::Forms::GroupBox^  gbGleichung;
 	protected:
-	private: System::Windows::Forms::TextBox^  tbGleichung;
+
 	private: System::Windows::Forms::GroupBox^  gbSettings;
 	private: System::Windows::Forms::GroupBox^  gbControll;
 	private: System::Windows::Forms::GroupBox^  gbMain;
@@ -49,6 +52,10 @@ namespace CppCLR_WinformsProjekt {
 	private: System::Windows::Forms::RadioButton^  rbFull;
 	private: System::Windows::Forms::RadioButton^  rbStepwise;
 	private: System::Windows::Forms::Label^  lGleichungen;
+
+	private: System::Windows::Forms::TextBox^  tbGleichung;
+	private: System::Windows::Forms::NumericUpDown^  nUDVars;
+	private: System::Windows::Forms::Label^  label1;
 
 
 	protected:
@@ -82,11 +89,14 @@ namespace CppCLR_WinformsProjekt {
 			this->rbFull = (gcnew System::Windows::Forms::RadioButton());
 			this->rbStepwise = (gcnew System::Windows::Forms::RadioButton());
 			this->gbGleichung = (gcnew System::Windows::Forms::GroupBox());
-			this->lGleichungen = (gcnew System::Windows::Forms::Label());
+			this->nUDVars = (gcnew System::Windows::Forms::NumericUpDown());
 			this->tbGleichung = (gcnew System::Windows::Forms::TextBox());
+			this->lGleichungen = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->gbControll->SuspendLayout();
 			this->gbSettings->SuspendLayout();
 			this->gbGleichung->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nUDVars))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// gbMain
@@ -100,6 +110,7 @@ namespace CppCLR_WinformsProjekt {
 			// 
 			// gbControll
 			// 
+			this->gbControll->Controls->Add(this->label1);
 			this->gbControll->Controls->Add(this->bShowCircuit);
 			this->gbControll->Controls->Add(this->bNextStep);
 			this->gbControll->Controls->Add(this->bSave);
@@ -149,6 +160,7 @@ namespace CppCLR_WinformsProjekt {
 			this->bCalc->TabIndex = 0;
 			this->bCalc->Text = L"Berechnen";
 			this->bCalc->UseVisualStyleBackColor = true;
+			this->bCalc->Click += gcnew System::EventHandler(this, &Form1::bCalc_Click);
 			// 
 			// gbSettings
 			// 
@@ -163,6 +175,7 @@ namespace CppCLR_WinformsProjekt {
 			// rbFull
 			// 
 			this->rbFull->AutoSize = true;
+			this->rbFull->Checked = true;
 			this->rbFull->Location = System::Drawing::Point(7, 50);
 			this->rbFull->Name = L"rbFull";
 			this->rbFull->Size = System::Drawing::Size(222, 17);
@@ -178,20 +191,41 @@ namespace CppCLR_WinformsProjekt {
 			this->rbStepwise->Name = L"rbStepwise";
 			this->rbStepwise->Size = System::Drawing::Size(170, 17);
 			this->rbStepwise->TabIndex = 0;
-			this->rbStepwise->TabStop = true;
 			this->rbStepwise->Text = L"Ergebnis schrittweise anzeigen";
 			this->rbStepwise->UseVisualStyleBackColor = true;
 			// 
 			// gbGleichung
 			// 
 			this->gbGleichung->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->gbGleichung->Controls->Add(this->lGleichungen);
+			this->gbGleichung->Controls->Add(this->nUDVars);
 			this->gbGleichung->Controls->Add(this->tbGleichung);
+			this->gbGleichung->Controls->Add(this->lGleichungen);
 			this->gbGleichung->Location = System::Drawing::Point(12, 568);
 			this->gbGleichung->Name = L"gbGleichung";
 			this->gbGleichung->Size = System::Drawing::Size(800, 100);
 			this->gbGleichung->TabIndex = 5;
 			this->gbGleichung->TabStop = false;
+			// 
+			// nUDVars
+			// 
+			this->nUDVars->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->nUDVars->Location = System::Drawing::Point(744, 74);
+			this->nUDVars->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 20, 0, 0, 0 });
+			this->nUDVars->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nUDVars->Name = L"nUDVars";
+			this->nUDVars->Size = System::Drawing::Size(50, 26);
+			this->nUDVars->TabIndex = 4;
+			this->nUDVars->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			// 
+			// tbGleichung
+			// 
+			this->tbGleichung->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->tbGleichung->Location = System::Drawing::Point(6, 74);
+			this->tbGleichung->Name = L"tbGleichung";
+			this->tbGleichung->Size = System::Drawing::Size(732, 26);
+			this->tbGleichung->TabIndex = 2;
 			// 
 			// lGleichungen
 			// 
@@ -205,15 +239,17 @@ namespace CppCLR_WinformsProjekt {
 			this->lGleichungen->TabIndex = 1;
 			this->lGleichungen->Text = L"Ausgangsfunktion:";
 			// 
-			// tbGleichung
+			// label1
 			// 
-			this->tbGleichung->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->tbGleichung->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbGleichung->Location = System::Drawing::Point(3, 71);
-			this->tbGleichung->Name = L"tbGleichung";
-			this->tbGleichung->Size = System::Drawing::Size(794, 26);
-			this->tbGleichung->TabIndex = 0;
+			this->label1->Location = System::Drawing::Point(6, 65);
+			this->label1->MaximumSize = System::Drawing::Size(224, 0);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(51, 20);
+			this->label1->TabIndex = 4;
+			this->label1->Text = L"label1";
 			// 
 			// Form1
 			// 
@@ -227,13 +263,23 @@ namespace CppCLR_WinformsProjekt {
 			this->Name = L"Form1";
 			this->Text = L"Form1";
 			this->gbControll->ResumeLayout(false);
+			this->gbControll->PerformLayout();
 			this->gbSettings->ResumeLayout(false);
 			this->gbSettings->PerformLayout();
 			this->gbGleichung->ResumeLayout(false);
 			this->gbGleichung->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nUDVars))->EndInit();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
+
+private: void DoQM(bool full);
+
+private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (this->rbFull->Checked == true) DoQM(true);
+	else DoQM(false);
+}
+
 };
 }
