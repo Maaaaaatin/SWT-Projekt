@@ -18,23 +18,28 @@ void CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 	for (int i = 0; i<vTemp.size(); i++) {
 		variables[i] = vTemp[i].c_str();
 	}
-	string nulls = "0000000";
+
 	while (getline(str, s, ','))	//getline(instring, outstring, delim)
 	{
-		char* sdata = const_cast<char*>(s.c_str());
+		char* sdata = (char*)malloc(sizeof(char)* s.size());
+		sdata = const_cast<char*>(s.c_str());
 		string data = "";
-		for (int i = 0; i < strlen(sdata); i++)
+		for (int i = 0; i < s.size(); i++)
 		{
-			int j = 0;
+			int j = i;
+			char sdata_temp = NULL;
+			if(sdata[i]) sdata_temp = sdata[i];
 			while (j < variables.size())
 			{
-				if (strcmp(variables[j], &sdata[i]) == 1)
+				if (strcmp(variables[j], &sdata_temp) == 0)
 				{
 					int term = int(sdata[i]);
 					data += q.decToBin(term);
+					break;
 				}
 				else
 				{
+					string nulls = "00000";
 					data += nulls;
 				}
 				j++;

@@ -6,7 +6,7 @@ QM::QM(int numberElements)
 {
 	numVars = numberElements;
 	//dontcares = (string*)malloc(numberElements * sizeof(string));
-	for (size_t i = 0; i < numberElements; i++)
+	for (int i = 0; i < numberElements; i++)
 	{
 		dontcares += '-';
 	}
@@ -15,36 +15,39 @@ QM::QM(int numberElements)
 vector<string> QM::getVars()
 {
 	vector<string> v;
-	string* letters = (string*)malloc(sizeof(string) * MAX_numVars);
-	int i = 0;
-
-	while (i < MAX_numVars)
+	for (int i = 0; i < this->numVars; i++)
 	{
-		letters[i] = 97 + i;
-		i++;
+		char letter = static_cast<char>(97 + i);
+		v.push_back(string(1, letter));
 	}
-	for (int i = 0; i<this->numVars; i++)
-		v.push_back(letters[i]);
 
 	return v;
 }
 
 string QM::decToBin(int number)
 {
-	if (number == 0 || number == 1)
-		return to_string(number) + "";
+	char* buff = (char*)malloc(sizeof(char) * 5);
+	itoa(number - 96, buff, 2);
+	char binChar[5];
 
-	if (number % 2 == 0)
-		return decToBin(number / 2) + "0";
-	else
-		return decToBin(number / 2) + "1";
+	for (int i = 0; i < 5; i++)
+	{
+		if (strcmp(&(buff[i]), "\0") == 0)
+		{
+			strncpy(binChar, "00000", 5 - i);
+			strcat(binChar, buff);
+			break;
+		}
+	}
+
+	return binChar;
 }
 
 string QM::zeroes(string binStr)
 {
-	int max = numVars*7 - binStr.length();
+	int max = numVars*5 - binStr.length();
 	for (int i = 0; i<max; i++)
-		binStr = "0" + binStr;
+		binStr = binStr + "0";
 	return binStr;
 }
 
