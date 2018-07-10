@@ -1,6 +1,5 @@
 #pragma once
 #include "QM.h"
-#include <sstream>	//istringstream
 #include <msclr\marshal_cppstd.h>
 
 namespace CppCLR_WinformsProjekt {

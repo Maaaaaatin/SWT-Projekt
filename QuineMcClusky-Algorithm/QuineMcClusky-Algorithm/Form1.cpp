@@ -13,10 +13,35 @@ void CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 	vector<string> minterms;
 	istringstream str(msclr::interop::marshal_as<std::string>(temp));	//konvertiere von System::String zu std::string
 	string s = "";
+	vector<string> vTemp = q.getVars();
+	vector<const char*> variables(vTemp.size(), nullptr);
+	for (int i = 0; i<vTemp.size(); i++) {
+		variables[i] = vTemp[i].c_str();
+	}
+	string nulls = "0000000";
 	while (getline(str, s, ','))	//getline(instring, outstring, delim)
 	{
-		int term = atoi(s.data());
-		minterms.push_back(q.zeroes(q.decToBin(term)));
+		char* sdata = const_cast<char*>(s.c_str());
+		string data = "";
+		for (int i = 0; i < strlen(sdata); i++)
+		{
+			int j = 0;
+			while (j < variables.size())
+			{
+				if (strcmp(variables[j], &sdata[i]) == 1)
+				{
+					int term = int(sdata[i]);
+					data += q.decToBin(term);
+				}
+				else
+				{
+					data += nulls;
+				}
+				j++;
+			}
+		}
+		data = q.zeroes(data);
+		minterms.push_back(data);
 	}
 
 	sort(minterms.begin(), minterms.end());
