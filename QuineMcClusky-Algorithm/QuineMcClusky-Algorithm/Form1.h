@@ -50,11 +50,12 @@ namespace CppCLR_WinformsProjekt {
 	private: System::Windows::Forms::Button^  bCalc;
 	private: System::Windows::Forms::RadioButton^  rbFull;
 	private: System::Windows::Forms::RadioButton^  rbStepwise;
-	private: System::Windows::Forms::Label^  lGleichungen;
+
 
 	private: System::Windows::Forms::TextBox^  tbGleichung;
 	private: System::Windows::Forms::NumericUpDown^  nUDVars;
 	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::Label^  lFunktion;
 
 
 	protected:
@@ -91,7 +92,7 @@ namespace CppCLR_WinformsProjekt {
 			this->gbGleichung = (gcnew System::Windows::Forms::GroupBox());
 			this->nUDVars = (gcnew System::Windows::Forms::NumericUpDown());
 			this->tbGleichung = (gcnew System::Windows::Forms::TextBox());
-			this->lGleichungen = (gcnew System::Windows::Forms::Label());
+			this->lFunktion = (gcnew System::Windows::Forms::Label());
 			this->gbControll->SuspendLayout();
 			this->gbSettings->SuspendLayout();
 			this->gbGleichung->SuspendLayout();
@@ -209,9 +210,9 @@ namespace CppCLR_WinformsProjekt {
 			// gbGleichung
 			// 
 			this->gbGleichung->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->gbGleichung->Controls->Add(this->lFunktion);
 			this->gbGleichung->Controls->Add(this->nUDVars);
 			this->gbGleichung->Controls->Add(this->tbGleichung);
-			this->gbGleichung->Controls->Add(this->lGleichungen);
 			this->gbGleichung->Location = System::Drawing::Point(12, 568);
 			this->gbGleichung->Name = L"gbGleichung";
 			this->gbGleichung->Size = System::Drawing::Size(800, 100);
@@ -240,17 +241,15 @@ namespace CppCLR_WinformsProjekt {
 			this->tbGleichung->TabIndex = 2;
 			this->tbGleichung->Text = L"abc,ab\'c,\'a\'b\'c,\'a\'bc";
 			// 
-			// lGleichungen
+			// lFunktion
 			// 
-			this->lGleichungen->AutoSize = true;
-			this->lGleichungen->Dock = System::Windows::Forms::DockStyle::Top;
-			this->lGleichungen->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lGleichungen->Location = System::Drawing::Point(3, 16);
-			this->lGleichungen->Name = L"lGleichungen";
-			this->lGleichungen->Size = System::Drawing::Size(142, 20);
-			this->lGleichungen->TabIndex = 1;
-			this->lGleichungen->Text = L"Ausgangsfunktion:";
+			this->lFunktion->AutoSize = true;
+			this->lFunktion->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			this->lFunktion->Location = System::Drawing::Point(6, 30);
+			this->lFunktion->Name = L"lFunktion";
+			this->lFunktion->Size = System::Drawing::Size(291, 20);
+			this->lFunktion->TabIndex = 6;
+			this->lFunktion->Text = L"Ausgangsfunktion und Variablenanzahl:";
 			// 
 			// Form1
 			// 
@@ -262,7 +261,7 @@ namespace CppCLR_WinformsProjekt {
 			this->Controls->Add(this->gbSettings);
 			this->Controls->Add(this->gbGleichung);
 			this->Name = L"Form1";
-			this->Text = L"Form1";
+			this->Text = L"QM-Calculator";
 			this->gbControll->ResumeLayout(false);
 			this->gbControll->PerformLayout();
 			this->gbSettings->ResumeLayout(false);

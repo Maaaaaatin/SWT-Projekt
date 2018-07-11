@@ -23,6 +23,7 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 		variables[i] = vTemp[i].c_str();
 	}
 
+
 	while (getline(str, s, ','))	//getline(instring, outstring, delim)
 	{
 		char* sdata = (char*)malloc(sizeof(char)* s.size());
@@ -58,7 +59,7 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 	string back = "";
 	int lastElem = minterms.size();
 	for (unsigned int i = 0; i<lastElem - 1; i++)
-		back += q.toCharacter(minterms[i]) + " + ";
+		back += q.toCharacter(minterms[i]) + " , ";
 	back += q.toCharacter(minterms[lastElem-1]);
 
 	return back;
