@@ -58,9 +58,8 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 	string back = "";
 	int lastElem = minterms.size();
 	for (unsigned int i = 0; i<lastElem - 1; i++)
-		back += q.toCharacter(minterms[i]) + "+";
+		back += q.toCharacter(minterms[i]) + " + ";
 	back += q.toCharacter(minterms[lastElem-1]);
 
-//	this->label1->Text->Replace(this->label1->Text, gcnew String(back.c_str()));
 	return back;
 }

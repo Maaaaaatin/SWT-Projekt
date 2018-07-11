@@ -221,7 +221,7 @@ namespace CppCLR_WinformsProjekt {
 			// 
 			this->nUDVars->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->nUDVars->Location = System::Drawing::Point(744, 74);
+			this->nUDVars->Location = System::Drawing::Point(744, 68);
 			this->nUDVars->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 20, 0, 0, 0 });
 			this->nUDVars->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->nUDVars->Name = L"nUDVars";
@@ -233,7 +233,7 @@ namespace CppCLR_WinformsProjekt {
 			// 
 			this->tbGleichung->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbGleichung->Location = System::Drawing::Point(6, 74);
+			this->tbGleichung->Location = System::Drawing::Point(6, 68);
 			this->tbGleichung->Name = L"tbGleichung";
 			this->tbGleichung->Size = System::Drawing::Size(732, 26);
 			this->tbGleichung->TabIndex = 2;
