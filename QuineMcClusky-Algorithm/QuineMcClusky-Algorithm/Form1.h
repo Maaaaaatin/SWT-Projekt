@@ -80,6 +80,7 @@ namespace CppCLR_WinformsProjekt {
 		{
 			this->gbMain = (gcnew System::Windows::Forms::GroupBox());
 			this->gbControll = (gcnew System::Windows::Forms::GroupBox());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->bShowCircuit = (gcnew System::Windows::Forms::Button());
 			this->bNextStep = (gcnew System::Windows::Forms::Button());
 			this->bSave = (gcnew System::Windows::Forms::Button());
@@ -91,7 +92,6 @@ namespace CppCLR_WinformsProjekt {
 			this->nUDVars = (gcnew System::Windows::Forms::NumericUpDown());
 			this->tbGleichung = (gcnew System::Windows::Forms::TextBox());
 			this->lGleichungen = (gcnew System::Windows::Forms::Label());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->gbControll->SuspendLayout();
 			this->gbSettings->SuspendLayout();
 			this->gbGleichung->SuspendLayout();
@@ -119,6 +119,18 @@ namespace CppCLR_WinformsProjekt {
 			this->gbControll->Size = System::Drawing::Size(230, 550);
 			this->gbControll->TabIndex = 7;
 			this->gbControll->TabStop = false;
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(6, 65);
+			this->label1->MaximumSize = System::Drawing::Size(224, 0);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(51, 20);
+			this->label1->TabIndex = 4;
+			this->label1->Text = L"label1";
 			// 
 			// bShowCircuit
 			// 
@@ -215,7 +227,7 @@ namespace CppCLR_WinformsProjekt {
 			this->nUDVars->Name = L"nUDVars";
 			this->nUDVars->Size = System::Drawing::Size(50, 26);
 			this->nUDVars->TabIndex = 4;
-			this->nUDVars->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nUDVars->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 3, 0, 0, 0 });
 			// 
 			// tbGleichung
 			// 
@@ -225,6 +237,7 @@ namespace CppCLR_WinformsProjekt {
 			this->tbGleichung->Name = L"tbGleichung";
 			this->tbGleichung->Size = System::Drawing::Size(732, 26);
 			this->tbGleichung->TabIndex = 2;
+			this->tbGleichung->Text = L"abc,ab\'c,\'a\'b\'c,\'a\'bc";
 			// 
 			// lGleichungen
 			// 
@@ -237,18 +250,6 @@ namespace CppCLR_WinformsProjekt {
 			this->lGleichungen->Size = System::Drawing::Size(142, 20);
 			this->lGleichungen->TabIndex = 1;
 			this->lGleichungen->Text = L"Ausgangsfunktion:";
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(6, 65);
-			this->label1->MaximumSize = System::Drawing::Size(224, 0);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(51, 20);
-			this->label1->TabIndex = 4;
-			this->label1->Text = L"label1";
 			// 
 			// Form1
 			// 
@@ -273,11 +274,21 @@ namespace CppCLR_WinformsProjekt {
 		}
 #pragma endregion
 
-private: void DoQM(bool full);
+private: string DoQM(bool full);
 
 private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (this->rbFull->Checked == true) DoQM(true);
+	if (this->rbFull->Checked == true)
+	{
+		String^ temp = "";
+		temp = gcnew String(DoQM(true).c_str());
+		label1->Text = temp;
+	}
 	else DoQM(false);
+	{
+		String^ temp = "";
+		temp = gcnew String(DoQM(false).c_str());
+		label1->Text = temp;
+	}
 }
 
 };

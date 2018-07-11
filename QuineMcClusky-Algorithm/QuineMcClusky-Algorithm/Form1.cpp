@@ -2,7 +2,7 @@
 #include "Form1.h"
 // #include "Form1.h"
 
-void CppCLR_WinformsProjekt::Form1::DoQM(bool full)
+string CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 {
 	QM q((int)this->nUDVars->Value);
 	
@@ -13,7 +13,11 @@ void CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 	vector<string> minterms;
 	istringstream str(msclr::interop::marshal_as<std::string>(temp));	//konvertiere von System::String zu std::string
 	string s = "";
+
+	//Variablen holen
 	vector<string> vTemp = q.getVars();
+	
+	//vector<string> -> vector<const char*>
 	vector<const char*> variables(vTemp.size(), nullptr);
 	for (int i = 0; i<vTemp.size(); i++) {
 		variables[i] = vTemp[i].c_str();
@@ -24,28 +28,22 @@ void CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 		char* sdata = (char*)malloc(sizeof(char)* s.size());
 		sdata = const_cast<char*>(s.c_str());
 		string data = "";
-		for (int i = 0; i < s.size(); i++)
+		int nots = 0;
+		for (int i = 0; i < variables.size() + nots; i++)
 		{
-			int j = i;
 			char sdata_temp = NULL;
 			if(sdata[i]) sdata_temp = sdata[i];
-			while (j < variables.size())
+			if (strcmp("'", &sdata_temp) == 0)
 			{
-				if (strcmp(variables[j], &sdata_temp) == 0)
-				{
-					int term = int(sdata[i]);
-					data += q.decToBin(term);
-					break;
-				}
-				else
-				{
-					string nulls = "00000";
-					data += nulls;
-				}
-				j++;
+				nots++;
+				i++;
+				data += "0";
+			}
+			else
+			{
+				data += "1";
 			}
 		}
-		data = q.zeroes(data);
 		minterms.push_back(data);
 	}
 
@@ -58,9 +56,11 @@ void CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 	} while (!q.EqualVectors(minterms, q.reduce(minterms)));
 
 	string back = "";
-	for (unsigned int i = 0; i<minterms.size() - 1; i++)
+	int lastElem = minterms.size();
+	for (unsigned int i = 0; i<lastElem - 1; i++)
 		back += q.toCharacter(minterms[i]) + "+";
-	back += q.toCharacter(minterms[minterms.size()]);
+	back += q.toCharacter(minterms[lastElem-1]);
 
-	this->label1->Text->Replace(this->label1->Text, gcnew String(back.c_str()));
+//	this->label1->Text->Replace(this->label1->Text, gcnew String(back.c_str()));
+	return back;
 }

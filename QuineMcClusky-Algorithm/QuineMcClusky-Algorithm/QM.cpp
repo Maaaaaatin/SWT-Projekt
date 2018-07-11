@@ -5,11 +5,6 @@
 QM::QM(int numberElements)
 {
 	numVars = numberElements;
-	//dontcares = (string*)malloc(numberElements * sizeof(string));
-	for (int i = 0; i < numberElements; i++)
-	{
-		dontcares += '-';
-	}
 }
 
 vector<string> QM::getVars()
@@ -22,33 +17,6 @@ vector<string> QM::getVars()
 	}
 
 	return v;
-}
-
-string QM::decToBin(int number)
-{
-	char* buff = (char*)malloc(sizeof(char) * 5);
-	itoa(number - 96, buff, 2);
-	char binChar[5];
-
-	for (int i = 0; i < 5; i++)
-	{
-		if (strcmp(&(buff[i]), "\0") == 0)
-		{
-			strncpy(binChar, "00000", 5 - i);
-			strcat(binChar, buff);
-			break;
-		}
-	}
-
-	return binChar;
-}
-
-string QM::zeroes(string binStr)
-{
-	int max = numVars*5 - binStr.length();
-	for (int i = 0; i<max; i++)
-		binStr = binStr + "0";
-	return binStr;
 }
 
 bool QM::isGreyCode(string a, string b)
@@ -115,26 +83,6 @@ vector<string> QM::reduce(vector<string> toReduce)
 	return reduced;
 }
 
-string QM::toCharacter(string boolStr)
-{
-	string temp = "";
-	vector<string> vars = this->getVars();
-	if (boolStr.compare(*dontcares) == 0)
-		return "1";
-
-	for (unsigned int i = 0; i<boolStr.length(); i++)
-	{
-		if (boolStr[i] != '-')
-		{
-			if (boolStr[i] == '0')
-				temp = temp + vars[i] + "\'";
-			else
-				temp = temp + vars[i];
-		}
-	}
-	return temp;
-}
-
 bool QM::EqualVectors(vector<string> a, vector<string> b)
 {
 	if (a.size() != b.size())
@@ -148,4 +96,26 @@ bool QM::EqualVectors(vector<string> a, vector<string> b)
 			return false;
 	}
 	return true;
+}
+
+string QM::toCharacter(string boolStr)
+{
+	string temp = "";
+	string dontcares = "";
+	dontcares.append(this->numVars, '-');
+	vector<string> vars = this->getVars();
+	if (boolStr == dontcares)
+		return "1";
+
+	for (unsigned int i = 0; i< boolStr.length(); i++)
+	{
+		if (boolStr[i] != '-')
+		{
+			if (boolStr[i] == '0')
+				temp = temp + "\'" + vars[i];
+			else
+				temp = temp + vars[i];
+		}
+	}
+	return temp;
 }

@@ -14,10 +14,6 @@ public:
 	QM(int numberElements);
 	//um die boolean Variablen zu erhalten
 	vector<string> getVars();
-	//wandelt dezimal zahlen in binär
-	string decToBin(int number);
-	//Nullen auffüllen
-	string zeroes(string binStr);
 	//auf Grey-Code überprüfen
 	bool isGreyCode(string a, string b);
 	//dontcares einfügen
@@ -32,6 +28,5 @@ public:
 	bool EqualVectors(vector<string> a, vector<string> b);
 private:
 	int numVars;
-	string* dontcares;
 };
 
