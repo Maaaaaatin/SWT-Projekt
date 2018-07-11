@@ -1,6 +1,7 @@
 #pragma once
 #include "QM.h"
 #include <msclr\marshal_cppstd.h>
+#include <typeinfo>
 
 namespace CppCLR_WinformsProjekt {
 
@@ -56,6 +57,10 @@ namespace CppCLR_WinformsProjekt {
 	private: System::Windows::Forms::NumericUpDown^  nUDVars;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::Label^  lFunktion;
+	private: System::Windows::Forms::DataGridView^  dGVTabelle;
+
+
+
 
 
 	protected:
@@ -80,6 +85,7 @@ namespace CppCLR_WinformsProjekt {
 		void InitializeComponent(void)
 		{
 			this->gbMain = (gcnew System::Windows::Forms::GroupBox());
+			this->dGVTabelle = (gcnew System::Windows::Forms::DataGridView());
 			this->gbControll = (gcnew System::Windows::Forms::GroupBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->bShowCircuit = (gcnew System::Windows::Forms::Button());
@@ -90,9 +96,11 @@ namespace CppCLR_WinformsProjekt {
 			this->rbFull = (gcnew System::Windows::Forms::RadioButton());
 			this->rbStepwise = (gcnew System::Windows::Forms::RadioButton());
 			this->gbGleichung = (gcnew System::Windows::Forms::GroupBox());
+			this->lFunktion = (gcnew System::Windows::Forms::Label());
 			this->nUDVars = (gcnew System::Windows::Forms::NumericUpDown());
 			this->tbGleichung = (gcnew System::Windows::Forms::TextBox());
-			this->lFunktion = (gcnew System::Windows::Forms::Label());
+			this->gbMain->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dGVTabelle))->BeginInit();
 			this->gbControll->SuspendLayout();
 			this->gbSettings->SuspendLayout();
 			this->gbGleichung->SuspendLayout();
@@ -102,11 +110,25 @@ namespace CppCLR_WinformsProjekt {
 			// gbMain
 			// 
 			this->gbMain->CausesValidation = false;
+			this->gbMain->Controls->Add(this->dGVTabelle);
 			this->gbMain->Location = System::Drawing::Point(12, 12);
 			this->gbMain->Name = L"gbMain";
 			this->gbMain->Size = System::Drawing::Size(1000, 550);
 			this->gbMain->TabIndex = 8;
 			this->gbMain->TabStop = false;
+			// 
+			// dGVTabelle
+			// 
+			this->dGVTabelle->AllowUserToAddRows = false;
+			this->dGVTabelle->AllowUserToDeleteRows = false;
+			this->dGVTabelle->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::ColumnHeader;
+			this->dGVTabelle->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllHeaders;
+			this->dGVTabelle->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dGVTabelle->Location = System::Drawing::Point(6, 16);
+			this->dGVTabelle->Name = L"dGVTabelle";
+			this->dGVTabelle->Size = System::Drawing::Size(988, 528);
+			this->dGVTabelle->TabIndex = 1;
+			this->dGVTabelle->Visible = false;
 			// 
 			// gbControll
 			// 
@@ -219,6 +241,16 @@ namespace CppCLR_WinformsProjekt {
 			this->gbGleichung->TabIndex = 5;
 			this->gbGleichung->TabStop = false;
 			// 
+			// lFunktion
+			// 
+			this->lFunktion->AutoSize = true;
+			this->lFunktion->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			this->lFunktion->Location = System::Drawing::Point(6, 30);
+			this->lFunktion->Name = L"lFunktion";
+			this->lFunktion->Size = System::Drawing::Size(291, 20);
+			this->lFunktion->TabIndex = 6;
+			this->lFunktion->Text = L"Ausgangsfunktion und Variablenanzahl:";
+			// 
 			// nUDVars
 			// 
 			this->nUDVars->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -241,16 +273,6 @@ namespace CppCLR_WinformsProjekt {
 			this->tbGleichung->TabIndex = 2;
 			this->tbGleichung->Text = L"abc,ab\'c,\'a\'b\'c,\'a\'bc";
 			// 
-			// lFunktion
-			// 
-			this->lFunktion->AutoSize = true;
-			this->lFunktion->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
-			this->lFunktion->Location = System::Drawing::Point(6, 30);
-			this->lFunktion->Name = L"lFunktion";
-			this->lFunktion->Size = System::Drawing::Size(291, 20);
-			this->lFunktion->TabIndex = 6;
-			this->lFunktion->Text = L"Ausgangsfunktion und Variablenanzahl:";
-			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -262,6 +284,8 @@ namespace CppCLR_WinformsProjekt {
 			this->Controls->Add(this->gbGleichung);
 			this->Name = L"Form1";
 			this->Text = L"QM-Calculator";
+			this->gbMain->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dGVTabelle))->EndInit();
 			this->gbControll->ResumeLayout(false);
 			this->gbControll->PerformLayout();
 			this->gbSettings->ResumeLayout(false);
@@ -277,6 +301,8 @@ namespace CppCLR_WinformsProjekt {
 private: string DoQM(bool full);
 
 private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e) {
+	dGVTabelle->Rows->Clear();
+	dGVTabelle->Columns->Clear();
 	if (this->rbFull->Checked == true)
 	{
 		String^ temp = "";
