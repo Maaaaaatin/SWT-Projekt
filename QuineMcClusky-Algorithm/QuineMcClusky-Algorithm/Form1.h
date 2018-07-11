@@ -131,6 +131,7 @@ namespace CppCLR_WinformsProjekt {
 			this->label1->Size = System::Drawing::Size(51, 20);
 			this->label1->TabIndex = 4;
 			this->label1->Text = L"label1";
+			this->label1->Visible = false;
 			// 
 			// bShowCircuit
 			// 
@@ -281,15 +282,18 @@ private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e
 	{
 		String^ temp = "";
 		temp = gcnew String(DoQM(true).c_str());
+		label1->Visible = true;
 		label1->Text = temp;
 	}
 	else DoQM(false);
 	{
 		String^ temp = "";
 		temp = gcnew String(DoQM(false).c_str());
+		label1->Visible = true;
 		label1->Text = temp;
 	}
 }
+
 
 };
 }
