@@ -30,6 +30,9 @@
     <ClInclude Include="QM.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Circuit.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">
@@ -51,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="QM.cpp">
       <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Circuit.cpp">
+      <Filter>Headerdateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

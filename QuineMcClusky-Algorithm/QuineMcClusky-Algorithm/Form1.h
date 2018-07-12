@@ -2,6 +2,7 @@
 #include "QM.h"
 #include <msclr\marshal_cppstd.h>
 #include <typeinfo>
+#include "Circuit.h"
 
 namespace CppCLR_WinformsProjekt {
 
@@ -330,64 +331,98 @@ namespace CppCLR_WinformsProjekt {
 //---------------------------------------------------------------------------Globale Variablen
 
 		int cycle = 0;
+		String^ temp = "";
 
 //---------------------------------------------------------------------------Funktionen
 
+//Tabellen erstellen
 private: void makeTable(vector<const char*> variables, vector<string> minterms);
+
+//eigentlicher Algorithmus
 private: string DoQM(bool full, int cycle);
 
+//"Berechnen"-Button
 private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (this->rbFull->Checked == true)
+	//Auswählen wie berechnet werden soll
+	if (this->rbFull->Checked == true)//ohne Zwischenschritte
 	{
-		String^ temp = "";
+		//Ausgabestring berechnen über Algorithmus
 		temp = gcnew String(DoQM(true, 1).c_str());
 		label1->Visible = true;
 		label1->Text = temp;
 	}
-	else
+	else//mit Zwischenschritten
 	{
 		this->bShowCircuit->Visible = false;
 		this->bSave->Visible = false;
+		
+		//aktueller zyklus
 		cycle = 1;
-		String^ temp = "";
+
+		//Ausgabestring berechnen über Algorithmus
 		temp = gcnew String(DoQM(false, cycle).c_str());
 		label1->Visible = true;
 		label1->Text = temp;
 	}
 }
 
+//"Nächster Schritt"-Button
 private: System::Void bNextStep_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	//aktueller zyklus
 	cycle++;
 
-	String^ temp = "";
+	//Ausgabestring berechnen über Algorithmus
 	temp = gcnew String(DoQM(false, cycle).c_str());
 	label1->Visible = true;
 	label1->Text = temp;
 }
-private: System::Void bShowCircuit_Click(System::Object^  sender, System::EventArgs^  e) {
 
+//Schaltplan anzeigen
+private: System::Void bShowCircuit_Click(System::Object^  sender, System::EventArgs^  e) {
+	
 }
 
 //Speichern
 private: System::Void bSave_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	//Speicher-Dialog öffnen
 	if (this->saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 	{
+		//Dateiname angeben
 		IO::StreamWriter^ save = IO::File::CreateText(saveFileDialog1->FileName);
+		
+		//Inhalt der Datei
 		save->WriteLine(this->tbGleichung->Text);
 		save->WriteLine(this->nUDVars->Value);
+	
+		//Speichern abschließen
 		save->Close();
 	}
 }
 
 //Laden
 private: System::Void bLoad_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	//Gleichung löschen
 	tbGleichung->Clear();
+
+	//Zu öffnende Datei auswählen
 	this->openFileDialog1->ShowDialog();
 	String^ filename = this->openFileDialog1->FileName;
 	IO::StreamReader^ save = IO::File::OpenText(openFileDialog1->FileName);
+	
+	//Gleichung, Anzahl Variablen lesen
 	this->tbGleichung->Text = save->ReadLine();
-	//this->nUDVars->Value = save->ReadLine();
+	this->nUDVars->Value = INT32::Parse(save->ReadLine());
+	
+	//Datei schließen
 	save->Close();
+
+	//Neuberechnung des Ausgabestrings
+	temp = gcnew String(DoQM(true, 1).c_str());
+	label1->Visible = true;
+	label1->Text = temp;
 }
 
 };

@@ -15,7 +15,7 @@ using namespace System;
 using namespace System::Windows::Forms;
 
 [STAThread]
-// int main(array<String^>^ args) { // Kann Fehler nach 'using namespace std;' verursachen
+//int main(array<String^>^ args) { // Kann Fehler nach 'using namespace std;' verursachen
 int main() {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
