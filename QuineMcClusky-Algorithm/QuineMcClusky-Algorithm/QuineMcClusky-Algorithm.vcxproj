@@ -176,9 +176,6 @@
     <Image Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Circuit.resx">
-      <DependentUpon>Circuit.h</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.h</DependentUpon>
     </EmbeddedResource>

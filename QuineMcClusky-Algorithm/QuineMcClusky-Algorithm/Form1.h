@@ -176,6 +176,7 @@ namespace CppCLR_WinformsProjekt {
 			this->bShowCircuit->Text = L"Schaltplan anzeigen";
 			this->bShowCircuit->UseVisualStyleBackColor = true;
 			this->bShowCircuit->Visible = false;
+			this->bShowCircuit->Click += gcnew System::EventHandler(this, &Form1::bShowCircuit_Click);
 			// 
 			// bSave
 			// 
@@ -379,8 +380,14 @@ private: System::Void bNextStep_Click(System::Object^  sender, System::EventArgs
 }
 
 //Schaltplan anzeigen
+
 private: System::Void bShowCircuit_Click(System::Object^  sender, System::EventArgs^  e) {
-	
+	Circuit^ dlg = gcnew Circuit;
+
+	dlg->Gleichung = this->label1->Text;
+	dlg->Variablen = int(this->nUDVars->Value);
+
+	dlg->ShowDialog();
 }
 
 //Speichern
@@ -424,6 +431,5 @@ private: System::Void bLoad_Click(System::Object^  sender, System::EventArgs^  e
 	label1->Visible = true;
 	label1->Text = temp;
 }
-
 };
 }

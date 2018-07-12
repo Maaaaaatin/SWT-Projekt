@@ -56,7 +56,7 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Circuit.cpp">
-      <Filter>Headerdateien</Filter>
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

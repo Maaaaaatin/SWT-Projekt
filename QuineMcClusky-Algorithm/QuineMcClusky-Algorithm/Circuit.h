@@ -1,8 +1,9 @@
 #pragma once
-#include <msclr\marshal_cppstd.h>
 #include "QM.h"
+#include <msclr\marshal_cppstd.h>
 
-namespace QuineMcClusky_Algorithm {
+
+namespace CppCLR_WinformsProjekt {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -50,20 +51,14 @@ namespace QuineMcClusky_Algorithm {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->SuspendLayout();
-			// 
-			// Circuit
-			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->components = gcnew System::ComponentModel::Container();
+			this->Size = System::Drawing::Size(1280,720);
+			this->Text = L"Circuit";
+			this->Padding = System::Windows::Forms::Padding(0);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1264, 681);
-			this->Name = L"Circuit";
-			this->Text = L"Schaltplan";
 			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Circuit::Circuit_Paint);
-			this->ResumeLayout(false);
 
 		}
-
 #pragma endregion
 
 //---------------------------------------------------------------------------Properties
@@ -80,32 +75,50 @@ namespace QuineMcClusky_Algorithm {
 		}
 
 //---------------------------------------------------------------------------Globale Variablen
+
 		String^ gl;
 		int vars;
 
+//---------------------------------------------------------------------------Zeichnen
 
-private: System::Void Circuit_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 
-	String^ gleichung = gl;
-	int variablen = vars;
 
-//---------------------------------------------------------------------------auftrennen
+	private: System::Void Circuit_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+	
+		Brush^ b = gcnew SolidBrush(System::Drawing::Color::Black);
+		System::Drawing::Font^ f = gcnew System::Drawing::Font("Arial", 12);
+		Graphics^ g = e->Graphics;
 
-	istringstream str(msclr::interop::marshal_as<std::string>(gleichung));	//konvertiere von System::String zu std::string
+		Point p;
 
-	QM q(variablen);
+		RectangleF^ r;
 
-	//Variablen holen
-	vector<string> vTemp = q.getVars();
+		String^ gleichung = gl;
+		int variablen = vars;
 
-	//vector<string> -> vector<const char*>, zum weiteren berechnen notwendig
-	vector<const char*> variables(vTemp.size(), nullptr);
-	for (int i = 0; i<vTemp.size(); i++) {
-		variables[i] = vTemp[i].c_str();
+		//input string splitten
+		istringstream str(msclr::interop::marshal_as<std::string>(gleichung));	//konvertiere von System::String zu std::string
+
+		//Variablen holen
+		QM q(variablen);
+
+		vector<string> vTemp = q.getVars();
+
+		//vector<string> -> vector<const char*>, zum weiteren berechnen notwendig
+		vector<const char*> variables(vTemp.size(), nullptr);
+		for (int i = 0; i<vTemp.size(); i++) {
+			variables[i] = vTemp[i].c_str();
+		}
+
+		for (int i = 0; i < variablen; i++)
+		{
+			p = Point(12, i*(720 / (variablen + 1)));
+			String^ s = gcnew String(variables[i]);
+			e->Graphics->DrawString(s, f, b, p);
+
+		}
+
+
 	}
-
-
-
-}
 	};
 }
