@@ -110,6 +110,7 @@ namespace CppCLR_WinformsProjekt {
 			// gbMain
 			// 
 			this->gbMain->CausesValidation = false;
+			this->gbMain->Controls->Add(this->label1);
 			this->gbMain->Controls->Add(this->dGVTabelle);
 			this->gbMain->Location = System::Drawing::Point(12, 12);
 			this->gbMain->Name = L"gbMain";
@@ -126,13 +127,12 @@ namespace CppCLR_WinformsProjekt {
 			this->dGVTabelle->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dGVTabelle->Location = System::Drawing::Point(6, 16);
 			this->dGVTabelle->Name = L"dGVTabelle";
-			this->dGVTabelle->Size = System::Drawing::Size(988, 528);
+			this->dGVTabelle->Size = System::Drawing::Size(988, 485);
 			this->dGVTabelle->TabIndex = 1;
 			this->dGVTabelle->Visible = false;
 			// 
 			// gbControll
 			// 
-			this->gbControll->Controls->Add(this->label1);
 			this->gbControll->Controls->Add(this->bShowCircuit);
 			this->gbControll->Controls->Add(this->bNextStep);
 			this->gbControll->Controls->Add(this->bSave);
@@ -148,7 +148,7 @@ namespace CppCLR_WinformsProjekt {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(6, 65);
+			this->label1->Location = System::Drawing::Point(6, 504);
 			this->label1->MaximumSize = System::Drawing::Size(224, 0);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(91, 20);
@@ -166,6 +166,7 @@ namespace CppCLR_WinformsProjekt {
 			this->bShowCircuit->Text = L"Schaltung anzeigen";
 			this->bShowCircuit->UseVisualStyleBackColor = true;
 			this->bShowCircuit->Visible = false;
+			this->bShowCircuit->Click += gcnew System::EventHandler(this, &Form1::bShowCircuit_Click);
 			// 
 			// bNextStep
 			// 
@@ -290,9 +291,9 @@ namespace CppCLR_WinformsProjekt {
 			this->Name = L"Form1";
 			this->Text = L"QM-Calculator";
 			this->gbMain->ResumeLayout(false);
+			this->gbMain->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dGVTabelle))->EndInit();
 			this->gbControll->ResumeLayout(false);
-			this->gbControll->PerformLayout();
 			this->gbSettings->ResumeLayout(false);
 			this->gbSettings->PerformLayout();
 			this->gbGleichung->ResumeLayout(false);
@@ -336,6 +337,9 @@ private: System::Void bNextStep_Click(System::Object^  sender, System::EventArgs
 	label1->Text = temp;
 }
 private: System::Void rbStepwise_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+
+}
+private: System::Void bShowCircuit_Click(System::Object^  sender, System::EventArgs^  e) {
 
 }
 };
