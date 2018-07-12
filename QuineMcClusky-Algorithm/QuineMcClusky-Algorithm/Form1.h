@@ -151,9 +151,9 @@ namespace CppCLR_WinformsProjekt {
 			this->label1->Location = System::Drawing::Point(6, 65);
 			this->label1->MaximumSize = System::Drawing::Size(224, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(51, 20);
+			this->label1->Size = System::Drawing::Size(91, 20);
 			this->label1->TabIndex = 4;
-			this->label1->Text = L"label1";
+			this->label1->Text = L"Zielfunktion";
 			this->label1->Visible = false;
 			// 
 			// bShowCircuit
@@ -165,6 +165,7 @@ namespace CppCLR_WinformsProjekt {
 			this->bShowCircuit->TabIndex = 3;
 			this->bShowCircuit->Text = L"Schaltung anzeigen";
 			this->bShowCircuit->UseVisualStyleBackColor = true;
+			this->bShowCircuit->Visible = false;
 			// 
 			// bNextStep
 			// 
@@ -175,6 +176,7 @@ namespace CppCLR_WinformsProjekt {
 			this->bNextStep->TabIndex = 2;
 			this->bNextStep->Text = L"Nächster Schritt";
 			this->bNextStep->UseVisualStyleBackColor = true;
+			this->bNextStep->Visible = false;
 			this->bNextStep->Click += gcnew System::EventHandler(this, &Form1::bNextStep_Click);
 			// 
 			// bSave
@@ -186,6 +188,7 @@ namespace CppCLR_WinformsProjekt {
 			this->bSave->TabIndex = 1;
 			this->bSave->Text = L"Speichern";
 			this->bSave->UseVisualStyleBackColor = true;
+			this->bSave->Visible = false;
 			// 
 			// bCalc
 			// 
@@ -229,6 +232,7 @@ namespace CppCLR_WinformsProjekt {
 			this->rbStepwise->TabIndex = 0;
 			this->rbStepwise->Text = L"Ergebnis schrittweise anzeigen";
 			this->rbStepwise->UseVisualStyleBackColor = true;
+			this->rbStepwise->CheckedChanged += gcnew System::EventHandler(this, &Form1::rbStepwise_CheckedChanged);
 			// 
 			// gbGleichung
 			// 
@@ -313,6 +317,8 @@ private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e
 	}
 	else
 	{
+		this->bShowCircuit->Visible = false;
+		this->bSave->Visible = false;
 		cycle = 1;
 		String^ temp = "";
 		temp = gcnew String(DoQM(false, cycle).c_str());
@@ -328,6 +334,9 @@ private: System::Void bNextStep_Click(System::Object^  sender, System::EventArgs
 	temp = gcnew String(DoQM(false, cycle).c_str());
 	label1->Visible = true;
 	label1->Text = temp;
+}
+private: System::Void rbStepwise_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+
 }
 };
 }

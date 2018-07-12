@@ -5,24 +5,24 @@
 void CppCLR_WinformsProjekt::Form1::makeTable(vector<const char*> variables, vector<string> minterms)
 {
 	this->dGVTabelle->Rows->Clear();
-	dGVTabelle->Columns->Clear();
+	this->dGVTabelle->Columns->Clear();
 	for (int i = 0; i < variables.size(); i++)
 	{
-		dGVTabelle->Columns->Add(i.ToString(), gcnew String(variables[i]));
+		this->dGVTabelle->Columns->Add(i.ToString(), gcnew String(variables[i]));
 	}
 	int j = 0;
 	for each (string s in minterms)
 	{
-		dGVTabelle->Rows->Add();
+		this->dGVTabelle->Rows->Add();
 		for (int i = 0; i < variables.size(); i++)
 		{
 			char strEl = s[i];
-			dGVTabelle->Rows[j]->Cells[i]->Value = gcnew String(&strEl);
+			this->dGVTabelle->Rows[j]->Cells[i]->Value = gcnew String(&strEl);
 		}
 		j++;
 	}
 
-	dGVTabelle->Visible = true;
+	this->dGVTabelle->Visible = true;
 }
 
 string CppCLR_WinformsProjekt::Form1::DoQM(bool full, int cycle)
@@ -80,6 +80,9 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full, int cycle)
 		{
 			makeTable(variables, minterms);
 			cycle--;
+			this->bCalc->Enabled = false;
+			this->bNextStep->Enabled = true;
+			this->bNextStep->Visible = true;
 		}
 
 		minterms = q.reduce(minterms);
@@ -89,10 +92,17 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full, int cycle)
 	makeTable(variables, minterms);
 
 	string back = "";
-	int lastElem = minterms.size();
+	unsigned int lastElem = minterms.size();
 	for (unsigned int i = 0; i<lastElem - 1; i++)
 		back += q.toCharacter(minterms[i]) + " , ";
 	back += q.toCharacter(minterms[lastElem-1]);
 
+	if (q.EqualVectors(minterms, q.reduce(minterms)))
+	{
+		this->bCalc->Enabled = true;
+		this->bNextStep->Enabled = false;
+		this->bShowCircuit->Visible = true;
+		this->bSave->Visible = true;
+	}
 	return back;
 }

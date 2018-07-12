@@ -30,6 +30,9 @@
     <ClInclude Include="QM.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Circuit.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">
@@ -52,6 +55,9 @@
     <ClCompile Include="QM.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="MyForm.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
@@ -62,5 +68,9 @@
     <EmbeddedResource Include="Form1.resx">
       <Filter>Ressourcendateien</Filter>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>
