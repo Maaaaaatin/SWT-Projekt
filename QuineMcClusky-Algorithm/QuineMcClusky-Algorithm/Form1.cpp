@@ -131,10 +131,10 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full, int cycle)
 	string back = "";
 
 	//letztes Element erfassen
-	unsigned int lastElem = minterms.size();
+	size_t lastElem = minterms.size();
 
 	//Minterme in Zwischenspeicher schreiben
-	for (unsigned int i = 0; i<lastElem - 1; i++)
+	for (size_t i = 0; i<lastElem - 1; i++)
 		back += q.toCharacter(minterms[i]) + " , ";
 	back += q.toCharacter(minterms[lastElem-1]);
 
