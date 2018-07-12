@@ -175,6 +175,7 @@ namespace CppCLR_WinformsProjekt {
 			this->bNextStep->TabIndex = 2;
 			this->bNextStep->Text = L"Nächster Schritt";
 			this->bNextStep->UseVisualStyleBackColor = true;
+			this->bNextStep->Click += gcnew System::EventHandler(this, &Form1::bNextStep_Click);
 			// 
 			// bSave
 			// 
@@ -261,7 +262,7 @@ namespace CppCLR_WinformsProjekt {
 			this->nUDVars->Name = L"nUDVars";
 			this->nUDVars->Size = System::Drawing::Size(50, 26);
 			this->nUDVars->TabIndex = 4;
-			this->nUDVars->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 3, 0, 0, 0 });
+			this->nUDVars->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
 			// 
 			// tbGleichung
 			// 
@@ -271,7 +272,7 @@ namespace CppCLR_WinformsProjekt {
 			this->tbGleichung->Name = L"tbGleichung";
 			this->tbGleichung->Size = System::Drawing::Size(732, 26);
 			this->tbGleichung->TabIndex = 2;
-			this->tbGleichung->Text = L"abc,ab\'c,\'a\'b\'c,\'a\'bc";
+			this->tbGleichung->Text = L"\'a\'b\'cd,\'a\'bcd,\'ab\'c\'d,\'ab\'cd,\'abc\'d,a\'b\'cd,a\'bcd,\'a\'b\'c\'d,a\'b\'c\'d";
 			// 
 			// Form1
 			// 
@@ -298,25 +299,35 @@ namespace CppCLR_WinformsProjekt {
 		}
 #pragma endregion
 
-private: string DoQM(bool full);
+private: void makeTable(vector<const char*> variables, vector<string> minterms);
+private: string DoQM(bool full, int cycle);
 
+int cycle = 0;
 private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (this->rbFull->Checked == true)
 	{
 		String^ temp = "";
-		temp = gcnew String(DoQM(true).c_str());
+		temp = gcnew String(DoQM(true, 1).c_str());
 		label1->Visible = true;
 		label1->Text = temp;
 	}
-	else DoQM(false);
+	else
 	{
+		cycle = 1;
 		String^ temp = "";
-		temp = gcnew String(DoQM(false).c_str());
+		temp = gcnew String(DoQM(false, cycle).c_str());
 		label1->Visible = true;
 		label1->Text = temp;
 	}
 }
 
+private: System::Void bNextStep_Click(System::Object^  sender, System::EventArgs^  e) {
+	cycle++;
 
+	String^ temp = "";
+	temp = gcnew String(DoQM(false, cycle).c_str());
+	label1->Visible = true;
+	label1->Text = temp;
+}
 };
 }

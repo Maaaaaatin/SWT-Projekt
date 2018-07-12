@@ -2,7 +2,30 @@
 #include "Form1.h"
 // #include "Form1.h"
 
-string CppCLR_WinformsProjekt::Form1::DoQM(bool full)
+void CppCLR_WinformsProjekt::Form1::makeTable(vector<const char*> variables, vector<string> minterms)
+{
+	this->dGVTabelle->Rows->Clear();
+	dGVTabelle->Columns->Clear();
+	for (int i = 0; i < variables.size(); i++)
+	{
+		dGVTabelle->Columns->Add(i.ToString(), gcnew String(variables[i]));
+	}
+	int j = 0;
+	for each (string s in minterms)
+	{
+		dGVTabelle->Rows->Add();
+		for (int i = 0; i < variables.size(); i++)
+		{
+			char strEl = s[i];
+			dGVTabelle->Rows[j]->Cells[i]->Value = gcnew String(&strEl);
+		}
+		j++;
+	}
+
+	dGVTabelle->Visible = true;
+}
+
+string CppCLR_WinformsProjekt::Form1::DoQM(bool full, int cycle)
 {
 	QM q((int)this->nUDVars->Value);
 
@@ -53,34 +76,17 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 
 	do
 	{
-		minterms = q.reduce(minterms);
-		sort(minterms.begin(), minterms.end());
-
 		if (full == false)
 		{
-			dGVTabelle->Rows->Clear();
-			dGVTabelle->Columns->Clear();
-			for (int i = 0; i < variables.size(); i++)
-			{
-				dGVTabelle->Columns->Add(i.ToString(), gcnew String(variables[i]));
-			}
-			int j = 0;
-			for each (string s in minterms)
-			{
-				dGVTabelle->Rows->Add();
-				for (int i = 0; i < variables.size(); i++)
-				{
-					char strEl = s[i];
-					dGVTabelle->Rows[j]->Cells[i]->Value = gcnew String(&strEl);
-				}
-				j++;
-			}
-
-			dGVTabelle->Visible = true;
-		
-			
+			makeTable(variables, minterms);
+			cycle--;
 		}
-	} while (!q.EqualVectors(minterms, q.reduce(minterms)));
+
+		minterms = q.reduce(minterms);
+		sort(minterms.begin(), minterms.end());
+	} while ((!q.EqualVectors(minterms, q.reduce(minterms))) && (cycle > 0));
+
+	makeTable(variables, minterms);
 
 	string back = "";
 	int lastElem = minterms.size();
