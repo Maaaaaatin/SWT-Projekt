@@ -51,19 +51,19 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 
 	sort(minterms.begin(), minterms.end());
 
-	if (full == false)
-	{
-		for (int i = 0; i < variables.size(); i++)
-		{
-			dGVTabelle->Columns->Add(i.ToString(), gcnew String(variables[i]));
-		}
-		dGVTabelle->Visible = true;
-	}
-
 	do
 	{
+		minterms = q.reduce(minterms);
+		sort(minterms.begin(), minterms.end());
+
 		if (full == false)
 		{
+			dGVTabelle->Rows->Clear();
+			dGVTabelle->Columns->Clear();
+			for (int i = 0; i < variables.size(); i++)
+			{
+				dGVTabelle->Columns->Add(i.ToString(), gcnew String(variables[i]));
+			}
 			int j = 0;
 			for each (string s in minterms)
 			{
@@ -75,10 +75,11 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full)
 				}
 				j++;
 			}
-		}
 
-		minterms = q.reduce(minterms);
-		sort(minterms.begin(), minterms.end());
+			dGVTabelle->Visible = true;
+		
+			
+		}
 	} while (!q.EqualVectors(minterms, q.reduce(minterms)));
 
 	string back = "";

@@ -301,8 +301,6 @@ namespace CppCLR_WinformsProjekt {
 private: string DoQM(bool full);
 
 private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e) {
-	dGVTabelle->Rows->Clear();
-	dGVTabelle->Columns->Clear();
 	if (this->rbFull->Checked == true)
 	{
 		String^ temp = "";
