@@ -13,9 +13,10 @@ System::Void CppCLR_WinformsProjekt::Circuit::Circuit_Paint(System::Object ^ sen
 	System::Drawing::Font^ f = gcnew System::Drawing::Font("Arial", 12);
 	Graphics^ g = e->Graphics;
 
+	//Punkte für Zeichnung
 	Point p1, p2, endpoint, savepoint;
 
-	//input string splitten
+	//input string splitten (wird 2 mal benötigt)
 	istringstream str(msclr::interop::marshal_as<std::string>(gleichung));	//konvertiere von System::String zu std::string
 	istringstream terms(msclr::interop::marshal_as<std::string>(gleichung));	//konvertiere von System::String zu std::string
 	string sTemp = "";
@@ -64,8 +65,10 @@ System::Void CppCLR_WinformsProjekt::Circuit::Circuit_Paint(System::Object ^ sen
 	p2.Y += 6;
 	e->Graphics->DrawLine(pen, endpoint, p2);
 
+	//Vektor für Gatterpunkte (kann nicht als vector<Point> angelegt werden)
 	vector<int> p_endVect_x;
 	vector<int> p_endVect_y;
+
 	//Rechtecke für "und"
 	for (int i = 0; i < minterms; i++)
 	{
@@ -76,6 +79,7 @@ System::Void CppCLR_WinformsProjekt::Circuit::Circuit_Paint(System::Object ^ sen
 		System::Drawing::Size varSize = System::Drawing::Size((720 / (minterms + 2)) / 1.5, 720 / (minterms + 1));
 		System::Drawing::Rectangle r = System::Drawing::Rectangle(p2, varSize);
 		
+		//Endpunkte zwischenspeichern
 		p_endVect_x.push_back(p2.X);
 		p_endVect_y.push_back(p2.Y);
 		
@@ -88,22 +92,19 @@ System::Void CppCLR_WinformsProjekt::Circuit::Circuit_Paint(System::Object ^ sen
 		e->Graphics->DrawString("&", f, b, p2);
 
 		//Punkte festlegen
-		Point p3, p4;
-		
 		savepoint.Y += 180 / (minterms+1);
 
 		p2.X += varSize.Width/2 + 6;
 		p2.Y += 6;
 
-		p3 = Point(savepoint.X - (i+1) * 295/minterms, savepoint.Y);
-		p4 = Point(p3.X, p2.Y);
-
 		//Linien zwischen "und"-, "oder"-Gatter
 		e->Graphics->DrawLine(pen, savepoint, p2);
 }
 
+	//Vektor für Variablenpunkte (kann nicht als vector<Point> angelegt werden)
 	vector<int> p_varVect_x;
 	vector<int> p_varVect_y;
+
 	//Variablennamen schreiben
 	for (int i = 0; i < variablen; i++)
 	{
@@ -114,32 +115,40 @@ System::Void CppCLR_WinformsProjekt::Circuit::Circuit_Paint(System::Object ^ sen
 		p_varVect_y.push_back(p1.Y);
 	}
 
+	//Linien zwischen Variablen, Gittern ziehen
 	int loop = 0;
-	while (getline(terms, sTemp, ','))
+	while (getline(terms, sTemp, ','))//aktuellen Minterm erfassen
 	{
-		Point p_var, p_end;
-		for (size_t i = 0; i < sTemp.size(); i++)
+		Point p_var, p_end;//Anfangs-, Endpunkt anlegen
+		for (size_t i = 0; i < sTemp.size(); i++)//für alle Buchstaben im aktuellen Minterm:
 		{
+			//Einzelnes Zeichen auswählen
 			char sdata_temp = NULL;
 			sdata_temp = sTemp[i];
 
-			//ist aktuelle variable negiert?
 			int j = 0;
-			while(j < variablen)
+			while(j < variablen)//für alle Variablen wiederholen
 			{
+				//aktuelle Variable auswählen
 				char currentElem = NULL;
 				strcpy(&currentElem, variables[j]);
 				j++;
 
+				//ist aktuelles Zeichen Negierung?
 				if (strcmp("'", &sdata_temp) == 0)
-				{
+				{//ja
+					//nächstes Zeichen auswählen
 					i++;
 					sdata_temp = sTemp[i];
+					
+					//mit allen variablen vergleichen
 					int k = 0;
 					while (k < variablen)
 					{
+						//aktuelles Zeichen = aktuelle Variable?
 						if (strcmp(&sdata_temp, &currentElem) != 0)
-						{
+						{//nein
+							//nächste Variable auswählen
 							k++;
 							strcpy(&currentElem, variables[k]);
 							continue;
@@ -147,12 +156,15 @@ System::Void CppCLR_WinformsProjekt::Circuit::Circuit_Paint(System::Object ^ sen
 						break;
 					}
 
+					//Linienpunkte festlegen
 					p_var = Point(p_varVect_x[k] + 24, p_varVect_y[k] + 6);
 					p_end = Point(p_endVect_x[loop], p_endVect_y[loop]);
 					p_end.Y += (720 / (minterms + 2)) / (variablen + 1) * (k + 1);
 
+					//Brush erstellen
 					Brush^ ellipseBr = gcnew SolidBrush(System::Drawing::Color::White);
 
+					//Linien, Negation einzeichnen
 					e->Graphics->DrawLine(pen, p_var, p_end);
 					e->Graphics->FillEllipse(ellipseBr, p_end.X - 5, p_end.Y - 5, 10, 10);
 					e->Graphics->DrawEllipse(pen, p_end.X - 6, p_end.Y - 6, 12, 12);
@@ -161,12 +173,15 @@ System::Void CppCLR_WinformsProjekt::Circuit::Circuit_Paint(System::Object ^ sen
 				}
 				else
 				{
+					//aktuelles Zeichen = aktuelle Variable?	nein -> nächste Variable auswählen
 					if (strcmp(&sdata_temp, &currentElem) != 0) continue;
 
+					//Linienpunkte festlegen
 					p_var = Point(p_varVect_x[j-1] + 24, p_varVect_y[j-1] + 6);
 					p_end = Point(p_endVect_x[loop], p_endVect_y[loop]);
 					p_end.Y += (720 / (minterms + 2)) / (variablen + 1) * j;
 
+					//Linien einzeichnen
 					e->Graphics->DrawLine(pen, p_var, p_end);
 					break;
 				}

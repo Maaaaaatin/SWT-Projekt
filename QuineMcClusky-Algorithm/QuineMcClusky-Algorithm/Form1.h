@@ -288,7 +288,7 @@ namespace CppCLR_WinformsProjekt {
 			this->nUDVars->Name = L"nUDVars";
 			this->nUDVars->Size = System::Drawing::Size(50, 26);
 			this->nUDVars->TabIndex = 4;
-			this->nUDVars->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			this->nUDVars->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
 			// tbGleichung
 			// 
@@ -298,7 +298,6 @@ namespace CppCLR_WinformsProjekt {
 			this->tbGleichung->Name = L"tbGleichung";
 			this->tbGleichung->Size = System::Drawing::Size(732, 26);
 			this->tbGleichung->TabIndex = 2;
-			this->tbGleichung->Text = L"\'a\'b\'cd,\'a\'bcd,\'ab\'c\'d,\'ab\'cd,\'abc\'d,a\'b\'cd,a\'bcd,\'a\'b\'c\'d,a\'b\'c\'d";
 			// 
 			// openFileDialog1
 			// 
