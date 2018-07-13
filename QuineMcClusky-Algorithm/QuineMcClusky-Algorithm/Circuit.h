@@ -63,62 +63,25 @@ namespace CppCLR_WinformsProjekt {
 
 //---------------------------------------------------------------------------Properties
 
-	public:
-		property String^ Gleichung
-		{
-			void set(String^ _gleichung) { gl = _gleichung; }
-		}
+public:
+	property String^ Gleichung
+	{
+		void set(String^ _gleichung) { gl = _gleichung; }
+	}
 
-		property int Variablen
-		{
-			void set(int _variablen) { vars = _variablen; }
-		}
+	property int Variablen
+	{
+		void set(int _variablen) { vars = _variablen; }
+	}
 
 //---------------------------------------------------------------------------Globale Variablen
 
-		String^ gl;
-		int vars;
+private:
+	String^ gl;
+	int vars;
 
 //---------------------------------------------------------------------------Zeichnen
 
-
-
-	private: System::Void Circuit_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
-	
-		Brush^ b = gcnew SolidBrush(System::Drawing::Color::Black);
-		System::Drawing::Font^ f = gcnew System::Drawing::Font("Arial", 12);
-		Graphics^ g = e->Graphics;
-
-		Point p;
-
-		RectangleF^ r;
-
-		String^ gleichung = gl;
-		int variablen = vars;
-
-		//input string splitten
-		istringstream str(msclr::interop::marshal_as<std::string>(gleichung));	//konvertiere von System::String zu std::string
-
-		//Variablen holen
-		QM q(variablen);
-
-		vector<string> vTemp = q.getVars();
-
-		//vector<string> -> vector<const char*>, zum weiteren berechnen notwendig
-		vector<const char*> variables(vTemp.size(), nullptr);
-		for (int i = 0; i<vTemp.size(); i++) {
-			variables[i] = vTemp[i].c_str();
-		}
-
-		for (int i = 0; i < variablen; i++)
-		{
-			p = Point(12, i*(720 / (variablen + 1)));
-			String^ s = gcnew String(variables[i]);
-			e->Graphics->DrawString(s, f, b, p);
-
-		}
-
-
-	}
+private: System::Void Circuit_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e);
 	};
 }

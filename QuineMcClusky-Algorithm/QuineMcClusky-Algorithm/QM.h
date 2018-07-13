@@ -11,6 +11,7 @@ using namespace std;
 ref class QM
 {
 public:
+	//Konstruktor
 	QM(int numberElements);
 	//um die boolean Variablen zu erhalten
 	vector<string> getVars();

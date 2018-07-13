@@ -349,8 +349,6 @@ private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e
 	{
 		//Ausgabestring berechnen über Algorithmus
 		temp = gcnew String(DoQM(true, 1).c_str());
-		label1->Visible = true;
-		label1->Text = temp;
 	}
 	else//mit Zwischenschritten
 	{
@@ -362,14 +360,15 @@ private: System::Void bCalc_Click(System::Object^  sender, System::EventArgs^  e
 
 		//Ausgabestring berechnen über Algorithmus
 		temp = gcnew String(DoQM(false, cycle).c_str());
-		label1->Visible = true;
-		label1->Text = temp;
 	}
+	
+	//Ausgabe
+	label1->Visible = true;
+	label1->Text = temp;
 }
 
 //"Nächster Schritt"-Button
 private: System::Void bNextStep_Click(System::Object^  sender, System::EventArgs^  e) {
-
 	//aktueller zyklus
 	cycle++;
 
@@ -380,8 +379,8 @@ private: System::Void bNextStep_Click(System::Object^  sender, System::EventArgs
 }
 
 //Schaltplan anzeigen
-
 private: System::Void bShowCircuit_Click(System::Object^  sender, System::EventArgs^  e) {
+	//Dialog für Schaltplan erstellen
 	Circuit^ dlg = gcnew Circuit;
 
 	dlg->Gleichung = this->label1->Text;
@@ -392,7 +391,6 @@ private: System::Void bShowCircuit_Click(System::Object^  sender, System::EventA
 
 //Speichern
 private: System::Void bSave_Click(System::Object^  sender, System::EventArgs^  e) {
-
 	//Speicher-Dialog öffnen
 	if (this->saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 	{
@@ -410,7 +408,6 @@ private: System::Void bSave_Click(System::Object^  sender, System::EventArgs^  e
 
 //Laden
 private: System::Void bLoad_Click(System::Object^  sender, System::EventArgs^  e) {
-
 	//Gleichung löschen
 	tbGleichung->Clear();
 

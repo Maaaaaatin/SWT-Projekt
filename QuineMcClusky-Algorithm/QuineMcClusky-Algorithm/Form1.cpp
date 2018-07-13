@@ -105,8 +105,6 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full, int cycle)
 		//soll schrittweise gerechnet werden
 		if (full == false)
 		{	//ja
-			//Tabelle mit Mintermen erzeugen
-			makeTable(variables, minterms);
 			cycle--;
 			
 			//Buttons freigeben/sperren
@@ -127,16 +125,13 @@ string CppCLR_WinformsProjekt::Form1::DoQM(bool full, int cycle)
 
 //---------------------------------------------------------------------------Ausgabe
 
-	//zwischenspeicher
+	//Rückgabestring
 	string back = "";
 
-	//letztes Element erfassen
-	size_t lastElem = minterms.size();
-
-	//Minterme in Zwischenspeicher schreiben
-	for (size_t i = 0; i<lastElem - 1; i++)
-		back += q.toCharacter(minterms[i]) + " , ";
-	back += q.toCharacter(minterms[lastElem-1]);
+	//Minterme in Rückgabestring schreiben
+	for (size_t i = 0; i<minterms.size() - 1; i++)
+		back += q.toCharacter(minterms[i]) + ",";
+	back += q.toCharacter(minterms[minterms.size()-1]);
 
 	//Buttons wieder frei geben, falls Minterme nicht weiter reduzierbar (nur bei schrittweiser berechnung)
 	if (q.EqualVectors(minterms, q.reduce(minterms)))
